@@ -1,0 +1,21 @@
+<% layout('layout') -%>
+<h4>Recipients Preview</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <% Object.keys(records[0]).forEach(key => { %>
+        <th><%= key %></th>
+      <% }) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% records.forEach(r => { %>
+      <tr>
+        <% Object.values(r).forEach(val => { %>
+          <td><%= val %></td>
+        <% }) %>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/campaigns/new" class="btn btn-primary">Back</a>

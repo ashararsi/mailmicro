@@ -1,0 +1,44 @@
+<% layout('layout') -%>
+<div class="d-flex justify-content-between mb-3">
+  <h2>SMTP Configurations</h2>
+  <a href="/smtp/new" class="btn btn-success">Add New</a>
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Port</th>
+      <th>Username</th>
+      <th>From Email</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% configs.forEach(cfg => { %>
+      <tr>
+        <td><%= cfg.host %></td>
+        <td><%= cfg.port %></td>
+        <td><%= cfg.username %></td>
+        <td><%= cfg.from_email %></td>
+        <td>
+          <% if(cfg.active) { %>
+            <span class="badge bg-success">Active</span>
+          <% } %>
+        </td>
+        <td>
+          <a href="/smtp/<%= cfg.id %>/edit" class="btn btn-sm btn-primary">Edit</a>
+          <form action="/smtp/<%= cfg.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this config?')">Delete</button>
+          </form>
+          <form action="/smtp/<%= cfg.id %>/test" method="POST" class="d-inline">
+            <button class="btn btn-sm btn-info">Test</button>
+          </form>
+          <form action="/smtp/<%= cfg.id %>/set-active" method="POST" class="d-inline">
+            <button class="btn btn-sm btn-success">Set Active</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

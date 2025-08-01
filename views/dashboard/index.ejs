@@ -1,0 +1,63 @@
+<% layout('layout') -%>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card border-primary mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">SMTP Configs</h5>
+        <span class="display-4"><%= smtpCount %></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-success mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">Templates</h5>
+        <span class="display-4"><%= templateCount %></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-info mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">Campaigns</h5>
+        <span class="display-4"><%= campaignCount %></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-header">Recent Campaigns</div>
+      <ul class="list-group list-group-flush">
+        <% campaigns.forEach(c => { %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= c.name %>
+            <span class="badge bg-<%= c.status === 'completed' ? 'success' : c.status === 'running' ? 'info' : c.status === 'failed' ? 'danger' : 'secondary' %>">
+              <%= c.status %>
+            </span>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-header">Delivery Stats</div>
+      <canvas id="deliveryChart" height="160"></canvas>
+      <script>
+        const ctx = document.getElementById('deliveryChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['Sent', 'Failed'],
+            datasets: [{
+              data: [<%= chartData.sent %>, <%= chartData.failed %>],
+              backgroundColor: ['#28a745', '#dc3545']
+            }]
+          }
+        });
+      </script>
+    </div>
+  </div>
+</div>

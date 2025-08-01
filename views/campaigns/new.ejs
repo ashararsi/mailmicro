@@ -1,0 +1,34 @@
+<% layout('layout') -%>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <form action="/campaigns/upload-csv" method="POST" enctype="multipart/form-data" class="card p-4 shadow mb-4">
+      <h4>Step 1: Upload Recipients CSV</h4>
+      <input type="file" name="recipients_csv" class="form-control mb-2" required>
+      <button class="btn btn-info w-100" type="submit">Preview Recipients</button>
+    </form>
+    <form action="/campaigns" method="POST" class="card p-4 shadow">
+      <h4>Step 2: Campaign Details</h4>
+      <div class="mb-3">
+        <label>Campaign Name</label>
+        <input name="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label>Email Template</label>
+        <select name="template_id" class="form-control" required>
+          <% templates.forEach(tpl => { %>
+            <option value="<%= tpl.id %>"><%= tpl.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label>Active SMTP</label>
+        <select name="smtp_id" class="form-control" required>
+          <% smtps.forEach(smtp => { %>
+            <option value="<%= smtp.id %>"><%= smtp.from_email %> (<%= smtp.host %>)</option>
+          <% }) %>
+        </select>
+      </div>
+      <button class="btn btn-success w-100" type="submit">Create Campaign</button>
+    </form>
+  </div>
+</div>

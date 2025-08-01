@@ -1,0 +1,46 @@
+<% layout('layout') -%>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <form action="/templates/<%= template.id %>" method="POST" enctype="multipart/form-data" class="card p-4 shadow">
+      <h4 class="mb-3">Edit Email Template</h4>
+      <div class="mb-3">
+        <label>Name</label>
+        <input name="name" class="form-control" value="<%= template.name %>" required>
+      </div>
+      <div class="mb-3">
+        <label>Logo (optional)</label>
+        <input name="logo" type="file" class="form-control">
+        <% if (template.logo) { %>
+          <img src="<%= template.logo %>" height="36" class="mt-2">
+        <% } %>
+      </div>
+      <div class="mb-3">
+        <label>Header Text</label>
+        <input name="header_text" class="form-control" value="<%= template.header_text %>">
+      </div>
+      <div class="mb-3">
+        <label>Footer Text</label>
+        <input name="footer_text" class="form-control" value="<%= template.footer_text %>">
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label>Header BG Color</label>
+          <input name="header_bg" type="color" class="form-control" value="<%= template.colors.header %>">
+        </div>
+        <div class="col">
+          <label>Footer BG Color</label>
+          <input name="footer_bg" type="color" class="form-control" value="<%= template.colors.footer %>">
+        </div>
+        <div class="col">
+          <label>Body BG Color</label>
+          <input name="body_bg" type="color" class="form-control" value="<%= template.colors.body %>">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Email Body (HTML, supports {{placeholders}})</label>
+        <textarea name="body_html" class="form-control" rows="7"><%= template.body_html %></textarea>
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Update</button>
+    </form>
+  </div>
+</div>

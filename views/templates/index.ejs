@@ -1,0 +1,33 @@
+<% layout('layout') -%>
+<div class="d-flex justify-content-between mb-3">
+  <h2>Email Templates</h2>
+  <a href="/templates/new" class="btn btn-success">Add New</a>
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Preview</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% templates.forEach(tpl => { %>
+      <tr>
+        <td><%= tpl.name %></td>
+        <td>
+          <% if (tpl.logo) { %>
+            <img src="<%= tpl.logo %>" height="36">
+          <% } %>
+          <span><%= tpl.header_text %></span>
+        </td>
+        <td>
+          <a href="/templates/<%= tpl.id %>/edit" class="btn btn-sm btn-primary">Edit</a>
+          <form action="/templates/<%= tpl.id %>/delete" method="POST" class="d-inline">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this template?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

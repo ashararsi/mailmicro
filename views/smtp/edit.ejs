@@ -1,0 +1,34 @@
+<% layout('layout') -%>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <form action="/smtp/<%= config.id %>?_method=PUT" method="POST" class="card p-4 shadow">
+      <h4 class="mb-3">Edit SMTP Config</h4>
+      <div class="mb-3">
+        <label>Host</label>
+        <input name="host" class="form-control" value="<%= config.host %>" required>
+      </div>
+      <div class="mb-3">
+        <label>Port</label>
+        <input name="port" class="form-control" type="number" value="<%= config.port %>" required>
+      </div>
+      <div class="mb-3">
+        <label>Username</label>
+        <input name="username" class="form-control" value="<%= config.username %>" required>
+      </div>
+      <div class="mb-3">
+        <label>Password</label>
+        <input name="password" class="form-control" type="password" value="<%= config.password %>" required>
+      </div>
+      <div class="mb-3">
+        <label>From Email</label>
+        <input name="from_email" class="form-control" type="email" value="<%= config.from_email %>" required>
+      </div>
+      <div class="mb-3">
+        <label>
+          <input type="checkbox" name="secure" value="true" <%= config.secure ? 'checked' : '' %>> Use TLS/SSL (secure)
+        </label>
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Update</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<% layout('layout') -%>
+<div class="d-flex justify-content-between mb-3">
+  <h2>Campaign: <%= campaign.name %></h2>
+  <a href="/campaigns" class="btn btn-secondary">Back</a>
+</div>
+<p>
+  Template: <%= campaign.Template ? campaign.Template.name : '' %> <br>
+  SMTP: <%= campaign.SmtpConfig ? campaign.SmtpConfig.from_email : '' %> <br>
+  Status: <span class="badge bg-<%= campaign.status === 'completed' ? 'success' : campaign.status === 'running' ? 'info' : campaign.status === 'failed' ? 'danger' : 'secondary' %>">
+    <%= campaign.status %>
+  </span>
+</p>
+<h4>Recipients</h4>
+<table class="table table-sm table-bordered">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% campaign.Recipients.forEach(r => { %>
+      <tr>
+        <td><%= r.email %></td>
+        <td>
+          <span class="badge bg-<%= r.status === 'sent' ? 'success' : r.status === 'failed' ? 'danger' : 'secondary' %>">
+            <%= r.status %>
+          </span>
+        </td>
+        <td><%= r.error %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
